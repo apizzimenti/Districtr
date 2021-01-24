@@ -140,6 +140,10 @@ export default class State {
         this.map = map;
     }
     update(feature, part) {
+        // Add this line, which updates the population datasets.
+        this.datasets.forEach(c => c.update(feature, part));
+
+        // Update other ColumnSets.
         this.columnSets.forEach(columnSet => columnSet.update(feature, part));
         this.plan.update(feature, part);
     }

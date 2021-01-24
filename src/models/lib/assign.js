@@ -41,11 +41,22 @@ export function getAssignedUnitIds(assignment) {
     );
 }
 
+/**
+ * Assign one feature to a district.
+ * @param {State} state object to be updated.
+ * @param {feature} feature MapBox feature.
+ * @param {number} partId District to which this feature is assigned.
+ * @returns {undefined}
+ */
 function assign(state, feature, partId) {
     if (typeof partId === 'number') {
         partId = [partId];
     }
+
+    // Update the omniscient State object (in particular the assignment and
+    // population).
     state.update(feature, partId);
+
     partId.forEach((p) => {
         if (state.parts[p]) {
             state.parts[p].visible = true;
@@ -56,6 +67,13 @@ function assign(state, feature, partId) {
     state.units.setAssignment(feature, partId);
 }
 
+/**
+ * Assigns features to districts.
+ * @param {State} state State object to be updated.
+ * @param {object} assignment The assignment we want to set.
+ * @param {object} assigned Units already assigned.
+ * @returns {{failures: number, successes: number}}
+ */
 function assignFeatures(state, assignment, assigned) {
     const features = state.units.querySourceFeatures();
     let failures = 0;

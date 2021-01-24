@@ -2,6 +2,7 @@ import Election from "../Election";
 import Part from "../Part";
 import Population from "../Population";
 import { districtColors } from "../../colors";
+import State from "../State";
 
 // This module provides functions that creates Part and ColumnSet (Election
 // and Population) objects from the Place and DistrictingProblem records
@@ -36,6 +37,25 @@ export function getParts(problem) {
         });
     }
     return parts;
+}
+
+/**
+ * Initializes separate population datasets so they can be swapped.
+ * @param {object} place unitsRecord belonging to the ``parts`` object.
+ * @param {State} parts State object.
+ * @returns {Population[]} Array of population objects.
+ */
+function initializePopulationDatasets(place, parts) {
+    const hasName = (c, n) => c.name === n;
+    let popnames = ["Population", "Population (2018)"];
+    let populations = [];
+
+    popnames.forEach(name => {
+        let pop = place.columnSets.find(cset => hasName(cset, name));
+        if (pop) populations.push(new Population({ ... pop, parts }));
+    });
+
+    return populations;
 }
 
 function getPopulation(place, parts) {
@@ -202,6 +222,7 @@ function getElections(place, parts) {
 }
 
 export function getColumnSets(state, unitsRecord) {
+    state.datasets = initializePopulationDatasets(unitsRecord, state.parts);
     state.elections = getElections(unitsRecord, state.parts);
     state.population = getPopulation(unitsRecord, state.parts);
     state.vap = getVAP(unitsRecord, state.parts);
@@ -325,5 +346,6 @@ export function getColumnSets(state, unitsRecord) {
     if (state.voters) {
         columnSets.push(state.voters);
     }
+
     return columnSets;
 }
