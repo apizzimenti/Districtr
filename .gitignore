@@ -78,3 +78,6 @@ typings/
 
 assets/raw
 /lambda
+
+# JetBrains stuff.
+.idea/
