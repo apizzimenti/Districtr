@@ -32,7 +32,7 @@ function _onDatasetChange(editor, dataset) {
 /**
  * Retrieve available population datasets, add them to a dropdown, and change
  * the active dataset based on which one is selected.
- * @param {object} editor editor object passed from the population balance
+ * @param {Editor} editor Editor instance passed from the population balance
  * plugin.
  * @returns {str} Renderable HTML containing the dropdown menu.
  */
