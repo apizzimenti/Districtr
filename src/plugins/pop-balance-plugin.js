@@ -5,6 +5,8 @@ import MultiMemberPopBalanceChart from "../components/Charts/MMPopBalanceChart";
 import populationBarChart from "../components/Charts/PopulationBarChart";
 import populationDeviation from "../components/Charts/PopulationDeviation";
 import unassignedPopulation from "../components/Charts/UnassignedPopulation";
+import changePopulationDataset from "../components/Charts/ChangePopulationDataset";
+
 
 export default function PopulationBalancePlugin(editor) {
     const problem = editor.state.plan.problem;
@@ -36,5 +38,17 @@ export default function PopulationBalancePlugin(editor) {
                 `
         );
     }
+
+    // Add a RevealSection for selecting the desired population dataset.
+    tab.addRevealSection(
+        "Population Dataset",
+        () => html`
+            <section class="toolbar-section">
+                ${changePopulationDataset(editor)}
+            </section>
+        `
+    );
+
+    // Add this tab to the editor toolbar; this is the first tab to be added.
     editor.toolbar.addTab(tab);
 }
