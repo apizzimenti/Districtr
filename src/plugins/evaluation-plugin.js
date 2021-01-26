@@ -51,6 +51,9 @@ export default function EvaluationPlugin(editor) {
         // `mockColumnSet` to the racial balance table, we instead pass
         // the State's `.population` object *itself* to avoid these types of
         // errors.
+
+        // TODO: Ensure that this change is codebase-wide and comports with the
+        //  coalition-building changes.
         tab.addRevealSection(
             "Population by Race",
             (uiState, dispatch) =>
