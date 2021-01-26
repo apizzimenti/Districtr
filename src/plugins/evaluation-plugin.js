@@ -43,12 +43,20 @@ export default function EvaluationPlugin(editor) {
             };
         }
 
+        // Since JS is pass-by-assignment, overwriting the contents of
+        // `mockColumnSet` doesn't allow any changes to the State instance's
+        // `.population` property to propagate through; specifically, when the
+        // user selects an alternate population dataset, this change isn't
+        // reflected in in the racial balance table. So, rather than passing
+        // `mockColumnSet` to the racial balance table, we instead pass
+        // the State's `.population` object *itself* to avoid these types of
+        // errors.
         tab.addRevealSection(
             "Population by Race",
             (uiState, dispatch) =>
                 RacialBalanceTable(
                     "Population by Race",
-                    mockColumnSet,
+                    state.population,
                     state.activeParts,
                     uiState.charts["Population by Race"],
                     dispatch
