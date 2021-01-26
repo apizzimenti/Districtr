@@ -17,6 +17,9 @@ export default function PopulationBalancePlugin(editor) {
         tab.addRevealSection(
             "Population Balance",
             () => html`
+                <section class="toolbar-section">
+                    ${changePopulationDataset(editor)}
+                </section>
                 ${MultiMemberPopBalanceChart(state.population, state.parts)}
                 <dl class="report-data-list">
                     ${unassignedPopulation(state.population)}
@@ -29,6 +32,9 @@ export default function PopulationBalancePlugin(editor) {
             "Population Balance",
             () =>
                 html`
+                    <section class="toolbar-section">
+                        ${changePopulationDataset(editor)}
+                    </section>
                     ${populationBarChart(state.population, state.activeParts)}
                     <dl class="report-data-list">
                         ${unassignedPopulation(state.population)}
@@ -38,16 +44,6 @@ export default function PopulationBalancePlugin(editor) {
                 `
         );
     }
-
-    // Add a RevealSection for selecting the desired population dataset.
-    tab.addRevealSection(
-        "Population Dataset",
-        () => html`
-            <section class="toolbar-section">
-                ${changePopulationDataset(editor)}
-            </section>
-        `
-    );
 
     // Add this tab to the editor toolbar; this is the first tab to be added.
     editor.toolbar.addTab(tab);
