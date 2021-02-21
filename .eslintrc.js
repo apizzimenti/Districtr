@@ -83,7 +83,7 @@ module.exports = {
             }
         ],
         "line-comment-position": "off",
-        "linebreak-style": ["error", "windows"],
+        // "linebreak-style": ["error", "windows"],
         "lines-around-comment": "off",
         "lines-around-directive": "error",
         "lines-between-class-members": ["error", "never"],
