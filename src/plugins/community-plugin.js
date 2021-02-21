@@ -1,18 +1,34 @@
 import { PivotTable } from "../components/Charts/PivotTable";
 import { CoalitionPivotTable } from "../components/Charts/CoalitionPivotTable";
+import OverlayContainer from "../layers/OverlayContainer";
+import MedianIncomeTable from "../components/Charts/MedianIncomeTable";
+import DemographicsTable from "../components/Charts/DemographicsTable";
 import { Tab } from "../components/Tab";
 import { actions } from "../reducers/toolbar";
 import AboutSection from "../components/AboutSection";
 import { spatial_abilities } from "../utils";
+import { html } from "lit-html";
 
 export default function CommunityPlugin(editor) {
     const { state, mapState } = editor;
 
     addLocationSearch(mapState);
 
-    const tab = new Tab("community", "Description", editor.store);
+    const tab = new Tab("community", "Drawing", editor.store);
     const about = new AboutSection(editor);
-    tab.addRevealSection("About Your Community", about.render);
+    tab.addRevealSection("Areas of Interest", about.render);
+
+    tab.addRevealSection("Help?", () => html`<ul class="option-list">
+                                                <li class="option-list__item">
+                                                Prompting Questions:
+                                                <ul>
+                                                    <li>What unites this community?</li>
+                                                    <li>Who lives here?</li>
+                                                    <li>Are there important places or traditions?</li>
+                                                </ul>
+                                                </li>`,
+                         {isOpen: false, activePartIndex: 0})
+
 
     const evaluationTab = new Tab("population", "Evaluation", editor.store);
     const populationPivot = PivotTable(
@@ -38,6 +54,38 @@ export default function CommunityPlugin(editor) {
             isOpen: false,
             activePartIndex: 0
         });
+    }
+
+    if (state.incomes && !["maricopa", "phoenix", "yuma", "seaz", "nwaz"].includes(state.place.id)) {
+        evaluationTab.addRevealSection(
+            'Household Income',
+            (uiState, dispatch) =>  html`<div>
+                ${MedianIncomeTable(
+                    state.incomes,
+                    state.activeParts,
+                    uiState.charts["Median Income"],
+                    dispatch
+                )}
+            </div>`,
+            {
+              isOpen: false
+            }
+        );
+    }
+
+    if (state.rent) {
+        evaluationTab.addRevealSection(
+            'Homeowner or Renter',
+            (uiState, dispatch) => html`<div class="sectionThing">
+                ${DemographicsTable(
+                    state.rent.subgroups,
+                    state.activeParts
+                )}
+            </div>`,
+            {
+              isOpen: false
+            }
+        );
     }
 
     editor.toolbar.addTabFirst(tab);

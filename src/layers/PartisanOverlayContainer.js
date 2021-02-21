@@ -5,7 +5,7 @@ import PartisanOverlay from "./PartisanOverlay";
 import { getLayerDescription } from "./OverlayContainer";
 
 export default class PartisanOverlayContainer {
-    constructor(id, layers, elections) {
+    constructor(id, layers, elections, bipolarText) {
         this._id = id;
         this.elections = elections;
         this.layers = layers;
@@ -18,6 +18,7 @@ export default class PartisanOverlayContainer {
         this.render = this.render.bind(this);
         this.toggleVisibility = this.toggleVisibility.bind(this);
         this.vote = "all";
+        this.bipolarText = bipolarText;
 
         if (window.location.search.includes("layer=")) {
             let layerSelect = window.location.search.split("layer=")[1].split("&")[0].toUpperCase();
@@ -43,6 +44,11 @@ export default class PartisanOverlayContainer {
         } else {
             this.currentElectionOverlay.hide();
         }
+        if (this.bipolarText) {
+            // get last word of label ("Renter") to show/hide color scale
+            let colorLabel = this.bipolarText.split(" ");
+            document.querySelector('#color-' + colorLabel[colorLabel.length - 1]).style.visibility = this.isVisible ? "visible" : "hidden";
+        }
     }
     setElection(i) {
         this._currentElectionIndex = i;
@@ -59,31 +65,33 @@ export default class PartisanOverlayContainer {
         const overlay = this.currentElectionOverlay;
         return html`
             <div class="ui-option ui-option--slim">
-                <label class="toolbar-checkbox">
-                    <input
-                        type="checkbox"
-                        name="data_layers"
-                        ?checked="${overlay.isVisible}"
-                        value="partisan"
-                        @change=${(e) => {
-                            if (e.bubbles) {
-                                let checks = document.getElementsByName("data_layers");
-                                for (let c = 0; c < checks.length; c++) {
-                                    if (checks[c].value !== this._id) {
-                                        checks[c].checked = false;
-                                        let evt = new Event("change");
-                                        checks[c].dispatchEvent(evt);
-                                    }
-                                }
-                            }
-                            this.toggleVisibility(e.target.checked);
-                        }}
-                    />
-                    Show partisan lean
-                </label>
+                <h5>
+                  <label class="toolbar-checkbox">
+                      <input
+                          type="checkbox"
+                          name="data_layers"
+                          ?checked="${overlay.isVisible}"
+                          value="partisan"
+                          @change=${(e) => {
+                              if (e.bubbles) {
+                                  let checks = document.getElementsByName("data_layers");
+                                  for (let c = 0; c < checks.length; c++) {
+                                      if (checks[c].value !== this._id) {
+                                          checks[c].checked = false;
+                                          let evt = new Event("change");
+                                          checks[c].dispatchEvent(evt);
+                                      }
+                                  }
+                              }
+                              this.toggleVisibility(e.target.checked);
+                          }}
+                      />
+                      ${this.bipolarText || "Show partisan lean"}
+                  </label>
+                </h5>
             </div>
             ${[
-                {
+                this.bipolarText ? null : {
                     label: "Election:",
                     element: Select(
                         this.elections,

@@ -13,7 +13,11 @@ export const partyRGBColors = {
     Independent: [11, 102, 35],
     // PR
     "Nuevo Progresista": [102, 102, 204],
-    "Popular Democrático": [255, 102, 51]
+    "Popular Democrático": [255, 102, 51],
+
+    // rent bipolar
+    'Owner-occupied': [250,179,71],
+    'Renter-occupied': [90,180,122],
 };
 
 /**
@@ -63,7 +67,7 @@ export function colorByCount(subgroup) {
             subgroup.asMapboxExpression(),
             0,
             0,
-            subgroup.total.max,
+            Math.max(subgroup.total.max, subgroup.columnSet.total_alt ? subgroup.columnSet.total_alt.max : 0),
             1
         ]
     ];
@@ -98,7 +102,7 @@ export function sizeByCount(subgroup) {
         ["sqrt", subgroup.total.asMapboxExpression()],
         0,
         0,
-        Math.sqrt(subgroup.total.max),
+        Math.sqrt(Math.max(subgroup.total.max, subgroup.columnSet.total_alt ? subgroup.columnSet.total_alt.max : 0)),
         20
     ];
 }
