@@ -183,7 +183,7 @@ module.exports = {
         "no-template-curly-in-string": "error",
         "no-ternary": "off",
         "no-throw-literal": "error",
-        "no-trailing-spaces": "error",
+        // "no-trailing-spaces": "error",
         "no-undef-init": "error",
         "no-undefined": "off",
         "no-unmodified-loop-condition": "error",

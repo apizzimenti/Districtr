@@ -5,7 +5,6 @@ import MultiMemberPopBalanceChart from "../components/Charts/MMPopBalanceChart";
 import populationBarChart from "../components/Charts/PopulationBarChart";
 import populationDeviation from "../components/Charts/PopulationDeviation";
 import unassignedPopulation from "../components/Charts/UnassignedPopulation";
-import { spatial_abilities } from "../utils";
 
 const descriptiveNames = {
     "Population": "2010 Census",
@@ -41,6 +40,7 @@ function popBalanceAddons(problem, pop) {
     `;
 }
 
+
 /**
  * A Plugin which creates and displays a population balance tab. This tab is the
  * first open, by default, when the user opens a districting plan.
@@ -59,51 +59,8 @@ export default function PopulationBalancePlugin(editor) {
         problem = state.problem,
         parts = state.activeParts,
         units = state.unitsBorders,
-        popChart = decidePopChart(problem),
-        place = state.place.id,
-        extra_source = state.units.sourceId === "ma_precincts_02_10" ? "ma_02" : 0;
-    
-    // If we're editing Massachusetts towns,
-    if (editor.state.units.sourceId === "ma_towns") extra_source = "ma_towns";
-    const placeID = extra_source || place;
-    const sep = (placeID === "louisiana") ? ";" : ",";
-    
-    let saveplan = state.serialize();
-    const GERRYCHAIN_URL = "//mggg.pythonanywhere.com";
-    fetch(GERRYCHAIN_URL + "/unassigned", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify(saveplan)
-    })
-    .then(res => res.json())
-    .catch(e => console.error(e))
-    .then(data => {
-        if (data["-1"] && data["-1"].length) {
-            const ids = data["-1"].filter(a => !a.includes(null)).sort((a, b) => b.length - a.length)[0];
-            const myurl = spatial_abilities(place).centroid_server
-                ? `//mggg.pythonanywhere.com/findBBox?place=${placeID}&`
-                : `https://mggg-states.subzero.cloud/rest/rpc/bbox_${placeID}?`
-            fetch(`${myurl}ids=${ids.slice(0, 100).join(sep)}`).then(res => res.json()).then((bbox) => {
-                if (bbox.length && typeof bbox[0] === 'number') {
-                    bbox = { x: bbox };
-                } else if (bbox.length) {
-                    bbox = bbox[0];
-                    if (bbox.length) {
-                        bbox = { x: bbox };
-                    }
-                }
-                Object.values(bbox).forEach(mybbox => {
-                    editor.state.map.fitBounds([
-                        [mybbox[0], mybbox[2]],
-                        [mybbox[1], mybbox[3]]
-                    ]);
-                });
-            });
-        }
-    });
-    
+        popChart = decidePopChart(problem);
+
     // Add a nameless section for highlighting unassigned units.
     tab.addSection(
         () => html`
