@@ -9,7 +9,7 @@ import unassignedPopulation from "../components/Charts/UnassignedPopulation";
 const descriptiveNames = {
     "Population": "2010 Census",
     "Population (2018)": "2018 ACS",
-    "Population (2019)": "2019 ACS"
+    "Population (2019 ACS)": "2019 ACS"
 };
 
 /**
@@ -60,12 +60,12 @@ export default function PopulationBalancePlugin(editor) {
         parts = state.activeParts,
         units = state.unitsBorders,
         popChart = decidePopChart(problem);
-
+    
     // Add a nameless section for highlighting unassigned units.
     tab.addSection(
         () => html`
             <section class="toolbar-section">
-                ${HighlightUnassigned(units)}
+                ${HighlightUnassigned(editor.state.unitsBorders)}
             </section>
         `
     );
@@ -79,7 +79,7 @@ export default function PopulationBalancePlugin(editor) {
             () => html`
                 <section class="toolbar-section">
                     ${popChart(pop, parts)}
-                    ${popBalanceAddons(problem, pop, units)}
+                    ${popBalanceAddons(problem, pop)}
                 </section>
             `,
             { isOpen: !(index > 0) }

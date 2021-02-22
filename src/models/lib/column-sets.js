@@ -1,4 +1,3 @@
-
 import Election from "../Election";
 import Part from "../Part";
 import Population from "../Population";
@@ -47,7 +46,7 @@ export function getParts(problem) {
  */
 function initializePopulationDatasets(place, parts) {
     const hasName = (c, n) => c.name === n;
-    let popnames = ["Population", "Population (2018)", "Population (2019)"];
+    let popnames = ["Population", "Population (2018)", "Population (2019 ACS)"];
     let populations = [];
 
     popnames.forEach(name => {

@@ -795,8 +795,6 @@
     ]
   },
   {
-    "id": "wisconsin2020acstst",
-    "state": "Wisconsin",
     "units": [
       {
         "id": "wards",
@@ -1203,7 +1201,9 @@
         ]
       }
     ],
+    "state": "Wisconsin",
     "name": "Wisconsin",
+    "id": "wisconsin2020acstst",
     "districtingProblems": [
       {
         "name": "Congress",

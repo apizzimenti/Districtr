@@ -465,7 +465,7 @@ export default function DataLayersPlugin(editor) {
             }
         );
     }
-
+    
     const demographicsOverlay = new OverlayContainer(
         "demographics",
         demoLayers.filter(lyr => !lyr.background),
@@ -476,6 +476,7 @@ export default function DataLayersPlugin(editor) {
         (state.units.id.includes("blockgroups") ? spatial_abilities(state.place.id).multiyear : null) // multiple years
     );
     coalitionOverlays.push(demographicsOverlay);
+    
 
     let vapOverlay = null;
     if (state.vap) {
@@ -491,6 +492,7 @@ export default function DataLayersPlugin(editor) {
         coalitionOverlays.push(vapOverlay);
     }
 
+    
     tab.addRevealSection(
         "Race",
         (uiState, dispatch) => html`
