@@ -34,6 +34,7 @@ export default function RacialBalanceTable(
     const subgroups = chartState.activeSubgroupIndices.map(
         index => population.subgroups[index]
     );
+
     return html`
         <section class="toolbar-section">
             ${SelectBoxes(

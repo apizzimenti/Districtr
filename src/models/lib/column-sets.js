@@ -1,8 +1,8 @@
+
 import Election from "../Election";
 import Part from "../Part";
 import Population from "../Population";
 import { districtColors } from "../../colors";
-import State from "../State";
 
 // This module provides functions that creates Part and ColumnSet (Election
 // and Population) objects from the Place and DistrictingProblem records
@@ -47,12 +47,12 @@ export function getParts(problem) {
  */
 function initializePopulationDatasets(place, parts) {
     const hasName = (c, n) => c.name === n;
-    let popnames = ["Population", "Population (2018)"];
+    let popnames = ["Population", "Population (2018)", "Population (2019)"];
     let populations = [];
 
     popnames.forEach(name => {
         let pop = place.columnSets.find(cset => hasName(cset, name));
-        if (pop) populations.push(new Population({ ... pop, parts }));
+        if (pop) populations.push(new Population({ ...pop, parts }));
     });
 
     return populations;
@@ -65,9 +65,11 @@ function getPopulation(place, parts) {
     let population18 = place.columnSets.find(
         columnSet => columnSet.name === "Population (2018)"
     );
+    
     let population19 = place.columnSets.find(
         columnSet => columnSet.name === "Population (2019)"
     );
+
     if (population18) {
         population18.subgroups.forEach(sg => {
             sg.name += " (2018)";
@@ -79,6 +81,7 @@ function getPopulation(place, parts) {
         population.total_alt = population18.total;
         population.name_alt = "Population (2018)";
     }
+    
     if (population19) {
         population19.subgroups.forEach(sg => {
             sg.name += " (2019)";

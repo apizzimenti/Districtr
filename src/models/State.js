@@ -140,7 +140,7 @@ export default class State {
         this.map = map;
     }
     update(feature, part) {
-        // Add this line, which updates the population datasets.
+        // Add this line, which updates hot-swappable Population datasets.
         this.datasets.forEach(c => c.update(feature, part));
 
         // Update other ColumnSets.

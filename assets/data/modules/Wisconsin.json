@@ -793,5 +793,433 @@
         "name": "State Assembly"
       }
     ]
+  },
+  {
+    "id": "wisconsin2020acstst",
+    "state": "Wisconsin",
+    "units": [
+      {
+        "id": "wards",
+        "name": "Wards",
+        "unitType": "Wards",
+        "columnSets": [
+          {
+            "type": "population",
+            "name": "Population (2019 ACS)",
+            "total": {
+              "key": "TOTPOP19",
+              "name": "Total Population (2019 ACS)",
+              "sum": 5790925,
+              "min": 0,
+              "max": 4610
+            },
+            "subgroups": [
+              {
+                "key": "WHITE19",
+                "name": "White Population",
+                "sum": 4947103,
+                "min": 0,
+                "max": 3873
+              },
+              {
+                "key": "BLACK19",
+                "name": "Black Population",
+                "sum": 371154,
+                "min": 0,
+                "max": 2868
+              },
+              {
+                "key": "AMIN19",
+                "name": "Indigenous American and Alaska Native Population",
+                "sum": 51336,
+                "min": 0,
+                "max": 882
+              },
+              {
+                "key": "ASIAN19",
+                "name": "Asian Population",
+                "sum": 161813,
+                "min": 0,
+                "max": 1579
+              },
+              {
+                "key": "NHPI19",
+                "name": "Native Hawaiian and Pacific Islander Population",
+                "sum": 2376,
+                "min": 0,
+                "max": 198
+              },
+              {
+                "key": "OTH19",
+                "name": "Other Races",
+                "sum": 118297,
+                "min": 0,
+                "max": 1522
+              },
+              {
+                "key": "2MORE19",
+                "name": "Two or More Races",
+                "sum": 138580,
+                "min": 0,
+                "max": 534
+              }
+            ]
+          },
+          {
+            "type": "population",
+            "name": "Voting-Age Population (2019 ACS)",
+            "total": {
+              "key": "VAP19",
+              "name": "Voting-Age Population (2019 ACS)",
+              "sum": 4509965,
+              "min": 0,
+              "max": 4594
+            },
+            "subgroups": []
+          },
+          {
+            "type": "population",
+            "name": "Population (2010 Census)",
+            "total": {
+              "key": "TOTPOP",
+              "name": "Total Population (2010 Census)",
+              "sum": 5686986,
+              "min": 0,
+              "max": 3905
+            },
+            "subgroups": [
+              {
+                "key": "NH_WHITE",
+                "name": "White Population",
+                "sum": 4738411,
+                "min": 0,
+                "max": 3245
+              },
+              {
+                "key": "NH_BLACK",
+                "name": "Black Population",
+                "sum": 350898,
+                "min": 0,
+                "max": 2720
+              },
+              {
+                "key": "NH_AMIN",
+                "name": "Indigenous American and Alaska Native Population",
+                "sum": 48511,
+                "min": 0,
+                "max": 766
+              },
+              {
+                "key": "NH_ASIAN",
+                "name": "Asian Population",
+                "sum": 128052,
+                "min": 0,
+                "max": 1429
+              },
+              {
+                "key": "NH_NHPI",
+                "name": "Native Hawaiian and Pacific Islander Population",
+                "sum": 1565,
+                "min": 0,
+                "max": 23
+              },
+              {
+                "key": "NH_OTHER",
+                "name": "Other Races",
+                "sum": 4095,
+                "min": 0,
+                "max": 22
+              },
+              {
+                "key": "NH_2MORE",
+                "name": "Two or More Races",
+                "sum": 79398,
+                "min": 0,
+                "max": 165
+              }
+            ]
+          },
+          {
+            "type": "population",
+            "name": "Voting-Age Population (2010 Census)",
+            "total": {
+              "key": "VAP",
+              "name": "Voting-Age Population",
+              "sum": 4347494,
+              "min": 0,
+              "max": 3859
+            },
+            "subgroups": [
+              {
+                "key": "HVAP",
+                "name": "Hispanic Voting-Age Population",
+                "sum": 199822,
+                "min": 0,
+                "max": 1465
+              },
+              {
+                "key": "BVAP",
+                "name": "Black Voting-Age Population",
+                "sum": 234526,
+                "min": 0,
+                "max": 1769
+              },
+              {
+                "key": "WVAP",
+                "name": "White Voting-Age Population",
+                "sum": 3753673,
+                "min": 0,
+                "max": 3242
+              },
+              {
+                "key": "AMINVAP",
+                "name": "Indigenous American and Alaska Native Voting-Age Population",
+                "sum": 34419,
+                "min": 0,
+                "max": 538
+              },
+              {
+                "key": "ASIANVAP",
+                "name": "Asian Voting-Age Population",
+                "sum": 86610,
+                "min": 0,
+                "max": 1073
+              },
+              {
+                "key": "NHPIVAP",
+                "name": "Native Hawaiian and Pacific Islander Voting-Age Population",
+                "sum": 1200,
+                "min": 0,
+                "max": 11
+              },
+              {
+                "key": "OTHERVAP",
+                "name": "Other Races Voting-Age Population",
+                "sum": 2113,
+                "min": 0,
+                "max": 22
+              },
+              {
+                "key": "2MOREVAP",
+                "name": "Two or More Races Voting-Age Population",
+                "sum": 35131,
+                "min": 0,
+                "max": 80
+              }
+            ]
+          },
+          {
+            "type": "election",
+            "name": "2018 Governor",
+            "subgroups": [
+              {
+                "key": "GOV18D",
+                "name": "Democratic",
+                "sum": 1324312,
+                "min": 0,
+                "max": 2743
+              },
+              {
+                "key": "GOV18R",
+                "name": "Republican",
+                "sum": 1295084,
+                "min": 0,
+                "max": 1304
+              }
+            ]
+          },
+          {
+            "type": "election",
+            "name": "2018 Senate",
+            "subgroups": [
+              {
+                "key": "SEN18D",
+                "name": "Democratic",
+                "sum": 1472914,
+                "min": 0,
+                "max": 2810
+              },
+              {
+                "key": "SEN18R",
+                "name": "Republican",
+                "sum": 1184885,
+                "min": 0,
+                "max": 1207
+              }
+            ]
+          },
+          {
+            "type": "election",
+            "name": "2016 Presidential",
+            "subgroups": [
+              {
+                "key": "PRES16D",
+                "name": "Democratic",
+                "sum": 1382536,
+                "min": 0,
+                "max": 2479
+              },
+              {
+                "key": "PRES16R",
+                "name": "Republican",
+                "sum": 1405284,
+                "min": 0,
+                "max": 1212
+              }
+            ]
+          },
+          {
+            "type": "election",
+            "name": "2012 Presidential",
+            "subgroups": [
+              {
+                "key": "PRES12D",
+                "name": "Democratic",
+                "sum": 1620985,
+                "min": 0,
+                "max": 2324
+              },
+              {
+                "key": "PRES12R",
+                "name": "Republican",
+                "sum": 1407966,
+                "min": 0,
+                "max": 1360
+              }
+            ]
+          },
+          {
+            "type": "election",
+            "name": "2016 Senate",
+            "subgroups": [
+              {
+                "key": "SEN16D",
+                "name": "Democratic",
+                "sum": 1380335,
+                "min": 0,
+                "max": 2479
+              },
+              {
+                "key": "SEN16R",
+                "name": "Republican",
+                "sum": 1479479,
+                "min": 0,
+                "max": 1383
+              }
+            ]
+          },
+          {
+            "type": "election",
+            "name": "2012 Senate",
+            "subgroups": [
+              {
+                "key": "SEN12D",
+                "name": "Democratic",
+                "sum": 1547104,
+                "min": 0,
+                "max": 2325
+              },
+              {
+                "key": "SEN12R",
+                "name": "Republican",
+                "sum": 1380126,
+                "min": 0,
+                "max": 1344
+              }
+            ]
+          },
+          {
+            "type": "election",
+            "name": "2014 Governor",
+            "subgroups": [
+              {
+                "key": "GOV14D",
+                "name": "Democratic",
+                "sum": 1122913,
+                "min": 0,
+                "max": 2064
+              },
+              {
+                "key": "GOV14R",
+                "name": "Republican",
+                "sum": 1259723,
+                "min": 0,
+                "max": 1226
+              }
+            ]
+          },
+          {
+            "type": "election",
+            "name": "2012 Governor",
+            "subgroups": [
+              {
+                "key": "GOV12D",
+                "name": "Democratic",
+                "sum": 1164480,
+                "min": 0,
+                "max": 2115
+              },
+              {
+                "key": "GOV12R",
+                "name": "Republican",
+                "sum": 1335585,
+                "min": 0,
+                "max": 1257
+              }
+            ]
+          }
+        ],
+        "idColumn": {
+          "name": "Ward Unique Identifier",
+          "key": "Code-2"
+        },
+        "bounds": [
+          [
+            -92.886697,
+            42.49192
+          ],
+          [
+            -86.805868,
+            47.037
+          ]
+        ],
+        "tilesets": [
+          {
+            "type": "fill",
+            "source": {
+              "type": "vector",
+              "url": "mapbox://districtr.wisconsin2020acstst_wards"
+            },
+            "sourceLayer": "wisconsin2020acstst_wards"
+          },
+          {
+            "type": "circle",
+            "source": {
+              "type": "vector",
+              "url": "mapbox://districtr.wisconsin2020acstst_wards_points"
+            },
+            "sourceLayer": "wisconsin2020acstst_wards_points"
+          }
+        ]
+      }
+    ],
+    "name": "Wisconsin",
+    "districtingProblems": [
+      {
+        "name": "Congress",
+        "numberOfParts": 8,
+        "pluralNoun": "Congressional Districts"
+      },
+      {
+        "name": "State Senate",
+        "numberOfParts": 33,
+        "pluralNoun": "State Senate Districts"
+      },
+      {
+        "name": "State Assembly",
+        "numberOfParts": 99,
+        "pluralNoun": "State Assembly Districts"
+      }
+    ]
   }
 ]
