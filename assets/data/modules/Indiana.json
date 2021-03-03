@@ -807,7 +807,7 @@
             "type": "circle",
             "source": {
               "type": "vector",
-              "url": "mapbox://districtr.indiana_precincts_points"
+              "url": "mapbox://districtr.indiana_precincts_points?v=2"
             },
             "sourceLayer": "indiana_precincts_points"
           },
@@ -815,7 +815,7 @@
             "type": "fill",
             "source": {
               "type": "vector",
-              "url": "mapbox://districtr.indiana_precincts"
+              "url": "mapbox://districtr.indiana_precincts?v=2"
             },
             "sourceLayer": "indiana_precincts"
           }

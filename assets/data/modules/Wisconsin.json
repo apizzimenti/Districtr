@@ -795,18 +795,20 @@
     ]
   },
   {
+    "state": "Wisconsin",
+    "id": "wisco2019acs",
     "units": [
       {
         "id": "wards",
-        "name": "Wards",
+        "name": "2020 Wards",
         "unitType": "Wards",
         "columnSets": [
           {
             "type": "population",
-            "name": "Population (2019 ACS)",
+            "name": "Population",
             "total": {
               "key": "TOTPOP19",
-              "name": "Total Population (2019 ACS)",
+              "name": "Total Population",
               "sum": 5790925,
               "min": 0,
               "max": 4610
@@ -815,194 +817,58 @@
               {
                 "key": "WHITE19",
                 "name": "White Population",
-                "sum": 4947103,
+                "sum": 4705729,
                 "min": 0,
-                "max": 3873
+                "max": 3619
               },
               {
                 "key": "BLACK19",
                 "name": "Black Population",
-                "sum": 371154,
+                "sum": 364006,
                 "min": 0,
                 "max": 2868
               },
               {
                 "key": "AMIN19",
                 "name": "Indigenous American and Alaska Native Population",
-                "sum": 51336,
+                "sum": 46891,
                 "min": 0,
-                "max": 882
+                "max": 827
               },
               {
                 "key": "ASIAN19",
                 "name": "Asian Population",
-                "sum": 161813,
+                "sum": 160672,
                 "min": 0,
                 "max": 1579
               },
               {
                 "key": "NHPI19",
                 "name": "Native Hawaiian and Pacific Islander Population",
-                "sum": 2376,
+                "sum": 2088,
                 "min": 0,
                 "max": 198
               },
               {
                 "key": "OTH19",
-                "name": "Other Races",
-                "sum": 118297,
+                "name": "Other Races Population",
+                "sum": 6052,
                 "min": 0,
-                "max": 1522
+                "max": 305
+              },
+              {
+                "key": "HISP19",
+                "name": "Hispanic Population",
+                "sum": 394405,
+                "min": 0,
+                "max": 2876
               },
               {
                 "key": "2MORE19",
-                "name": "Two or More Races",
-                "sum": 138580,
+                "name": "Two or More Races Population",
+                "sum": 110811,
                 "min": 0,
-                "max": 534
-              }
-            ]
-          },
-          {
-            "type": "population",
-            "name": "Voting-Age Population (2019 ACS)",
-            "total": {
-              "key": "VAP19",
-              "name": "Voting-Age Population (2019 ACS)",
-              "sum": 4509965,
-              "min": 0,
-              "max": 4594
-            },
-            "subgroups": []
-          },
-          {
-            "type": "population",
-            "name": "Population (2010 Census)",
-            "total": {
-              "key": "TOTPOP",
-              "name": "Total Population (2010 Census)",
-              "sum": 5686986,
-              "min": 0,
-              "max": 3905
-            },
-            "subgroups": [
-              {
-                "key": "NH_WHITE",
-                "name": "White Population",
-                "sum": 4738411,
-                "min": 0,
-                "max": 3245
-              },
-              {
-                "key": "NH_BLACK",
-                "name": "Black Population",
-                "sum": 350898,
-                "min": 0,
-                "max": 2720
-              },
-              {
-                "key": "NH_AMIN",
-                "name": "Indigenous American and Alaska Native Population",
-                "sum": 48511,
-                "min": 0,
-                "max": 766
-              },
-              {
-                "key": "NH_ASIAN",
-                "name": "Asian Population",
-                "sum": 128052,
-                "min": 0,
-                "max": 1429
-              },
-              {
-                "key": "NH_NHPI",
-                "name": "Native Hawaiian and Pacific Islander Population",
-                "sum": 1565,
-                "min": 0,
-                "max": 23
-              },
-              {
-                "key": "NH_OTHER",
-                "name": "Other Races",
-                "sum": 4095,
-                "min": 0,
-                "max": 22
-              },
-              {
-                "key": "NH_2MORE",
-                "name": "Two or More Races",
-                "sum": 79398,
-                "min": 0,
-                "max": 165
-              }
-            ]
-          },
-          {
-            "type": "population",
-            "name": "Voting-Age Population (2010 Census)",
-            "total": {
-              "key": "VAP",
-              "name": "Voting-Age Population",
-              "sum": 4347494,
-              "min": 0,
-              "max": 3859
-            },
-            "subgroups": [
-              {
-                "key": "HVAP",
-                "name": "Hispanic Voting-Age Population",
-                "sum": 199822,
-                "min": 0,
-                "max": 1465
-              },
-              {
-                "key": "BVAP",
-                "name": "Black Voting-Age Population",
-                "sum": 234526,
-                "min": 0,
-                "max": 1769
-              },
-              {
-                "key": "WVAP",
-                "name": "White Voting-Age Population",
-                "sum": 3753673,
-                "min": 0,
-                "max": 3242
-              },
-              {
-                "key": "AMINVAP",
-                "name": "Indigenous American and Alaska Native Voting-Age Population",
-                "sum": 34419,
-                "min": 0,
-                "max": 538
-              },
-              {
-                "key": "ASIANVAP",
-                "name": "Asian Voting-Age Population",
-                "sum": 86610,
-                "min": 0,
-                "max": 1073
-              },
-              {
-                "key": "NHPIVAP",
-                "name": "Native Hawaiian and Pacific Islander Voting-Age Population",
-                "sum": 1200,
-                "min": 0,
-                "max": 11
-              },
-              {
-                "key": "OTHERVAP",
-                "name": "Other Races Voting-Age Population",
-                "sum": 2113,
-                "min": 0,
-                "max": 22
-              },
-              {
-                "key": "2MOREVAP",
-                "name": "Two or More Races Voting-Age Population",
-                "sum": 35131,
-                "min": 0,
-                "max": 80
+                "max": 451
               }
             ]
           },
@@ -1186,24 +1052,22 @@
             "type": "fill",
             "source": {
               "type": "vector",
-              "url": "mapbox://districtr.wisconsin2020acstst_wards"
+              "url": "mapbox://districtr.wisco2019acs_wards"
             },
-            "sourceLayer": "wisconsin2020acstst_wards"
+            "sourceLayer": "wisco2019acs_wards"
           },
           {
             "type": "circle",
             "source": {
               "type": "vector",
-              "url": "mapbox://districtr.wisconsin2020acstst_wards_points"
+              "url": "mapbox://districtr.wisco2019acs_wards_points"
             },
-            "sourceLayer": "wisconsin2020acstst_wards_points"
+            "sourceLayer": "wisco2019acs_wards_points"
           }
         ]
       }
     ],
-    "state": "Wisconsin",
     "name": "Wisconsin",
-    "id": "wisconsin2020acstst",
     "districtingProblems": [
       {
         "name": "Congress",
