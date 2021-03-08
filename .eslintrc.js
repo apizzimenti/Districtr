@@ -45,7 +45,7 @@ module.exports = {
         "computed-property-spacing": ["error", "never"],
         "consistent-return": "off",
         "consistent-this": "error",
-        curly: "error",
+        // curly: "error",
         "default-case": "error",
         "dot-location": ["error", "property"],
         "dot-notation": "error",

@@ -6,101 +6,70 @@ import populationBarChart from "../components/Charts/PopulationBarChart";
 import populationDeviation from "../components/Charts/PopulationDeviation";
 import unassignedPopulation from "../components/Charts/UnassignedPopulation";
 import { spatial_abilities } from "../utils";
+import populateDatasetInfo from "../components/Charts/DatasetInfo";
 
-export default function PopulationBalancePlugin(editor) {
-    const problem = editor.state.plan.problem;
-    const state = editor.state;
-    const tab = new Tab("criteria", "Population", editor.store);
+function fitToBoundingBox(state, place, data, url) {
+    // First, verify that the data provided has the required results. If not,
+    // return.
+    if (!(data["-1"] && data["-1"].length)) return;
     
-    let plan = editor.state.plan,
-        place = editor.state.place.id,
-        extra_source = (editor.state.units.sourceId === "ma_precincts_02_10") ? "ma_02" : 0;
-    if (editor.state.units.sourceId === "ma_towns") {
-        extra_source = "ma_towns";
-    }
-    if (editor.state.units.sourceId === "indiana_precincts") {
-        extra_source = "indianaprec";
-    }
-    const placeID = extra_source || place;
-    const sep = (placeID === "louisiana") ? ";" : ",";
+    // Find the right separator, construct the suffix and the individual URL
+    // using the suffix, and select the desired IDs.
+    let sep = place.id.toLowerCase() === "louisiana" ? ";" : ",",
+        ids = data["-1"]
+            .filter(a => !a.includes(null))
+            .sort((a, b) => b.length - a.length)[0],
+        suffix = `ids=${ids.slice(0, 100).join(sep)}`,
+        individualURL = url + `/findBBox?place=${place.id}&${suffix}`;
     
-    const zoomToUnassigned = spatial_abilities(editor.state.place.id).find_unpainted
-        ? (e) => {
-            let saveplan = state.serialize();
-            const GERRYCHAIN_URL = "//mggg.pythonanywhere.com";
-            fetch(GERRYCHAIN_URL + "/unassigned", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify(saveplan),
-            })
-            .then((res) => res.json())
-            .catch((e) => console.error(e))
-            .then((data) => {
-                if (data["-1"] && data["-1"].length) {
-                    const ids = data["-1"].filter(a => !a.includes(null)).sort((a, b) => b.length - a.length)[0];
-                    const myurl = `//mggg.pythonanywhere.com/findBBox?place=${placeID}&`;
-                    // : `https://mggg-states.subzero.cloud/rest/rpc/bbox_${placeID}?`
-                    fetch(`${myurl}ids=${ids.slice(0, 100).join(sep)}`).then(res => res.json()).then((bbox) => {
-                        if (bbox.length && typeof bbox[0] === 'number') {
-                            bbox = {x: bbox};
-                        } else if (bbox.length) {
-                            bbox = bbox[0];
-                            if (bbox.length) {
-                                bbox = {x: bbox};
-                            }
-                        }
-                        Object.values(bbox).forEach(mybbox => {
-                            editor.state.map.fitBounds([
-                                [mybbox[0], mybbox[2]],
-                                [mybbox[1], mybbox[3]]
-                            ]);
-                        });
-                    });
-                }
+    // Fetch the bounding boxes.
+    fetch(individualURL)
+        .then(res => res.json())
+        .then(bbox => {
+            // Check that the bounding box has nonzero length and its first
+            // coordinate is a number (indicating that the rest of the coords
+            // are also numbers). Otherwise, it's nested a little deeper.
+            if (bbox.length && !isNaN(bbox[0])) bbox = { x: bbox };
+            else if (bbox.length) {
+                bbox = bbox[0];
+                if (bbox.length) bbox = { x: bbox };
+            }
+            
+            // Iterate through the properties of the bounding box and fit the
+            // map to the box.
+            Object.values(bbox).forEach(box => {
+                state.map.fitBounds([
+                    [box[0], box[2]],
+                    [box[1], box[3]]
+                ]);
             });
-        }
-        : null;
-    
-    if (problem.type === "multimember") {
-        tab.addRevealSection(
-            "Population Balance",
-            () => html`
-                ${MultiMemberPopBalanceChart(state.population, state.parts)}
-                <dl class="report-data-list">
-                    ${unassignedPopulation(state.population)}
-                    ${HighlightUnassigned(state.unitsBorders, zoomToUnassigned)}
-                </dl>
-            `
-        );
-    } else {
-        tab.addRevealSection(
-            "Population Balance",
-            () =>
-                html`
-                    ${populationBarChart(state.population, state.activeParts)}
-                    <dl class="report-data-list">
-                        ${unassignedPopulation(state.population)}
-                        ${populationDeviation(state.population)}
-                        ${HighlightUnassigned(state.unitsBorders, zoomToUnassigned)}
-                    </dl>
-                `
-        );
-    }
-    editor.toolbar.addTab(tab);
+        });
 }
 
-/*
-import { html } from "lit-html";
-import { Tab } from "../components/Tab";
-import HighlightUnassigned from "../components/Charts/HighlightUnassigned";
-import MultiMemberPopBalanceChart from "../components/Charts/MMPopBalanceChart";
-import populationBarChart from "../components/Charts/PopulationBarChart";
-import populationDeviation from "../components/Charts/PopulationDeviation";
-import unassignedPopulation from "../components/Charts/UnassignedPopulation";
-import { spatial_abilities } from "../utils";
-import populateDatasetInfo from "../components/Charts/DatasetInfo";
+function zoomToUnassigned(editor) {
+    let state = editor.state,
+        place = state.place,
+        saveplan = JSON.stringify(state.serialize()),
+        unpainted = spatial_abilities(place.id).find_unpainted,
+        url = "//mggg.pythonanywhere.com",
+        options = {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: saveplan
+        };
+    
+    // Fetches data from the PythonAnywhere server, which sends back IDs of
+    // unassigned features. For each unassigned feature, we retrieve its
+    // bounding box and re-fit the map to the box.
+    const _zoom = () => {
+        fetch(url + "/unassigned", options)
+            .then(res => res.json())
+            .catch(err => console.error(err))
+            .then(data => fitToBoundingBox(state, place, data, url));
+    };
+    
+    return unpainted ? _zoom : null;
+}
 
 const descriptiveNames = {
     "Population": "2010 Census",
@@ -143,7 +112,7 @@ function popBalanceAddons(problem, pop) {
  * is initialized.
  * @constructor
  */
-/*
+
 export default function PopulationBalancePlugin(editor) {
     // Initialize a new Tab.
     const tab = new Tab("criteria", "Population", editor.store);
@@ -161,7 +130,7 @@ export default function PopulationBalancePlugin(editor) {
     tab.addSection(
         () => html`
             <section class="toolbar-section">
-                ${HighlightUnassigned(editor.state.unitsBorders)}
+                ${HighlightUnassigned(units, zoomToUnassigned(editor))}
             </section>
         `
     );
@@ -174,6 +143,9 @@ export default function PopulationBalancePlugin(editor) {
             `Population Balance: ${descriptiveNames[pop.name]}`,
             () => html`
                 <section class="toolbar-section">
+                    <section class="toolbar-inner dataset-info">
+                        ${populateDatasetInfo(state)}
+                    </section>
                     ${popChart(pop, parts)}
                     ${popBalanceAddons(problem, pop)}
                 </section>
@@ -182,6 +154,7 @@ export default function PopulationBalancePlugin(editor) {
         );
     });
 
+    // Add the tab to the toolbar.
     editor.toolbar.addTab(tab);
 }
-*/
+
