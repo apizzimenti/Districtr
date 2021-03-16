@@ -1,3 +1,4 @@
+
 import { html } from "lit-html";
 import { Tab } from "../components/Tab";
 import HighlightUnassigned from "../components/Charts/HighlightUnassigned";
@@ -7,6 +8,7 @@ import populationDeviation from "../components/Charts/PopulationDeviation";
 import unassignedPopulation from "../components/Charts/UnassignedPopulation";
 import { spatial_abilities } from "../utils";
 import populateDatasetInfo from "../components/Charts/DatasetInfo";
+
 
 function fitToBoundingBox(state, place, data, url) {
     // First, verify that the data provided has the required results. If not,
@@ -112,7 +114,6 @@ function popBalanceAddons(problem, pop) {
  * is initialized.
  * @constructor
  */
-
 export default function PopulationBalancePlugin(editor) {
     // Initialize a new Tab.
     const tab = new Tab("criteria", "Population", editor.store);
@@ -153,7 +154,7 @@ export default function PopulationBalancePlugin(editor) {
             { isOpen: !(index > 0) }
         );
     });
-
+    
     // Add the tab to the toolbar.
     editor.toolbar.addTab(tab);
 }

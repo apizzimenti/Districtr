@@ -9,7 +9,6 @@ import { directive } from "lit-html";
 function datasetInfo(state) {
     // Dictionary of descriptions.
     let population = state.population,
-        units = state.unitsRecord,
         place = state.place,
         populations = {
             census: "Uses <strong>2010 United States Census </strong> data.",
