@@ -8,6 +8,7 @@ import populationDeviation from "../components/Charts/PopulationDeviation";
 import unassignedPopulation from "../components/Charts/UnassignedPopulation";
 import { spatial_abilities } from "../utils";
 import populateDatasetInfo from "../components/Charts/DatasetInfo";
+import changePopulationDataset from "../components/Charts/ChangePopulationDataset";
 
 
 function fitToBoundingBox(state, place, data, url) {
@@ -125,6 +126,7 @@ export default function PopulationBalancePlugin(editor) {
         problem = state.problem,
         parts = state.activeParts,
         units = state.unitsBorders,
+        population = state.population,
         popChart = decidePopChart(problem);
     
     // Add a nameless section for highlighting unassigned units.
@@ -138,22 +140,20 @@ export default function PopulationBalancePlugin(editor) {
 
     // Create tab reveal sections using the array of Populations. Based on the
     // index of each Population object, determine whether we have the viewer
-    // open or closed, by default.
-    state.datasets.reverse().forEach((pop, index) => {
-        tab.addRevealSection(
-            `Population Balance: ${descriptiveNames[pop.name]}`,
-            () => html`
-                <section class="toolbar-section">
-                    <section class="toolbar-inner dataset-info">
-                        ${populateDatasetInfo(state)}
-                    </section>
-                    ${popChart(pop, parts)}
-                    ${popBalanceAddons(problem, pop)}
+    tab.addRevealSection(
+        `Population Balance`,
+        () => html`
+            <section class="toolbar-section">
+                ${changePopulationDataset(editor)}
+                <section class="toolbar-inner dataset-info">
+                    ${populateDatasetInfo(editor.state)}
                 </section>
-            `,
-            { isOpen: !(index > 0) }
-        );
-    });
+                ${popChart(editor.state.population, editor.state.activeParts)}
+                ${popBalanceAddons(editor.state.problem, editor.state.population)}
+            </section>
+        `,
+        { isOpen: true }
+    );
     
     // Add the tab to the toolbar.
     editor.toolbar.addTab(tab);

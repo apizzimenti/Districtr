@@ -16,7 +16,6 @@ const descriptiveNames = {
  * @param {Population[]} dataset Population datasets available to the user.
  * @returns {function(*): void} Callback.
  * @private
- * @deprecated
  */
 function _onDatasetChange(editor, dataset) {
     /**
@@ -41,7 +40,6 @@ function _onDatasetChange(editor, dataset) {
  * @param {Editor} editor Editor instance passed from the population balance
  * plugin.
  * @returns {Parameter} Renderable HTML containing the dropdown menu.
- * @deprecated
  */
 const changePopulationDataset = editor => {
     // Modify the names to make them more descriptive.
