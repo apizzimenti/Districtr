@@ -103,10 +103,11 @@ const coi_events = [
   'ttt',
   'ourmapsmn',
   'micrc',
+  'mesaaz',
 ];
 
 const hybrid_events = [
-  'mesaaz',
+  // 'mesaaz',
 ];
 
 const eventDescriptions = {
@@ -176,6 +177,10 @@ export default () => {
         if (coi_events.includes(eventCode)) {
             document.getElementById("introExplain").innerText = "Map Your Community";
             document.getElementById("introExplain").style.display = "block";
+        }
+
+        if (eventCode === "mesaaz") {
+            document.getElementById("partnership-icon").innerHTML = "<img src='/assets/partners-rp.png' height='60' alt='Logo for Redistricting Partners'/>";
         }
 
         // document.getElementById("eventCode").innerText = og_eventCode;
